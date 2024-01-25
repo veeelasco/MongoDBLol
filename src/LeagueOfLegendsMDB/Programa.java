@@ -19,9 +19,6 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 
 
-
-
-
 public class Programa {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(Programa.class);
