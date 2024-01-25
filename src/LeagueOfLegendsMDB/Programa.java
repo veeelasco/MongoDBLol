@@ -42,6 +42,7 @@ public class Programa {
 					break;
 				case 2:crearRegion();
 					break;
+				case 5:eliminarCampeon();
 				}
 				
 			}while(numero>0&&numero<7);
@@ -186,4 +187,49 @@ public class Programa {
 			e.printStackTrace();
 		}
 	}
+	
+	public static boolean eliminarCampeon() {
+		MongoCollection<Document> collection = mongoDatabase.getCollection("Campeones");
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br= new BufferedReader(isr);
+		String nombre;
+	
+		try {
+		System.out.println("Indique el nombre del campeon que desea eliminar: ");
+		nombre = br.readLine();
+		
+		Document filtro = new Document("Nombre", nombre);
+		collection.deleteMany(filtro);
+		System.out.println("Campeon " + nombre + " eliminado");
+		
+		}
+		catch(IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+	public static boolean eliminarRegion() {
+		MongoCollection<Document> collection = mongoDatabase.getCollection("Regiones");
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br= new BufferedReader(isr);
+		String nombre;
+	
+		try {
+		System.out.println("Indique el nombre de la Region que desea eliminar: ");
+		nombre = br.readLine();
+		
+		Document filtro = new Document("Region", nombre);
+		collection.deleteMany(filtro);
+		System.out.println("Region " + nombre + " eliminada");
+		
+		}
+		catch(IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	
 }
