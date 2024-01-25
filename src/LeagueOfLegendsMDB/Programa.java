@@ -6,14 +6,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.imageio.spi.ServiceRegistry.Filter;
+
 import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
+
+
+
+
 
 public class Programa {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Programa.class);
 	
 	static MongoClient mongoClient=new MongoClient("localhost", 27017);
 	//Crea la bd league of legends
@@ -43,6 +54,9 @@ public class Programa {
 				case 2:crearRegion();
 					break;
 				case 5:eliminarCampeon();
+					break;
+				case 6:eliminarRegion();
+					break;
 				}
 				
 			}while(numero>0&&numero<7);
@@ -118,7 +132,7 @@ public class Programa {
 				
 				comprobante=true;
 				}catch(NumberFormatException e) {
-					System.out.println("Mete numeros no letras!!!");
+					LOGGER.error("Mete numeros no letras!!!");
 					comprobante=false;
 				}
 			}while(comprobante==false);
@@ -137,8 +151,7 @@ public class Programa {
 			collecion.insertOne(campeon);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error de E/S");
 		}
 		
 	}
@@ -183,8 +196,7 @@ public class Programa {
 		collection.insertOne(region);
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error de E/S");
 		}
 	}
 	
@@ -198,14 +210,19 @@ public class Programa {
 		System.out.println("Indique el nombre del campeon que desea eliminar: ");
 		nombre = br.readLine();
 		
-		Document filtro = new Document("Nombre", nombre);
-		collection.deleteMany(filtro);
-		System.out.println("Campeon " + nombre + " eliminado");
+		DeleteResult deleteResult = collection.deleteOne(Filters.eq("Campeon", nombre));
+		
+		if(deleteResult.getDeletedCount() > 0) {
+			LOGGER.info("Campeon " + nombre + " eliminado");
+		}
+		else {
+			LOGGER.warn("Campeon " + nombre + " no encontrado");
+		}
+		
 		
 		}
 		catch(IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error de E/S");
 		}
 		return true;
 	}
@@ -219,14 +236,18 @@ public class Programa {
 		System.out.println("Indique el nombre de la Region que desea eliminar: ");
 		nombre = br.readLine();
 		
-		Document filtro = new Document("Region", nombre);
-		collection.deleteMany(filtro);
-		System.out.println("Region " + nombre + " eliminada");
+		DeleteResult deleteResult = collection.deleteOne(Filters.eq("Region", nombre));
+		
+		if(deleteResult.getDeletedCount() > 0) {
+			LOGGER.info("Region " + nombre + " eliminada");
+		}
+		else {
+			LOGGER.warn("Region " + nombre + " no encontrada");
+		}
 		
 		}
 		catch(IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error de E/S");
 		}
 		return true;
 	}
