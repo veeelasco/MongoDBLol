@@ -1,25 +1,29 @@
 package LeagueOfLegendsMDB;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import java.util.Iterator;
 import org.bson.Document;
-
-import com.mongodb.MongoClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
+
 
 public class Programa {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Programa.class);
 	
-	static MongoClient mongoClient=new MongoClient("localhost", 27017);
-	//Crea la bd league of legends
-	static MongoDatabase mongoDatabase= mongoClient.getDatabase("League_Of_Legends");
+	private static MongoDB db = new MongoDB();
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
 		try {
@@ -30,9 +34,10 @@ public class Programa {
 				System.out.println("2- Crear Region");
 				System.out.println("3- Leer Campeon");
 				System.out.println("4- Leer Region");
-				System.out.println("5- Borrar Campeon");
-				System.out.println("6- Borrar Region");
-				System.out.println("7- Salir");
+				System.out.println("5- Actualizar Campeon");
+				System.out.println("6- Borrar Campeon");
+				System.out.println("7- Borrar Region");
+				System.out.println("8- Salir");
 				
 				System.out.println("Introduce un numero para realizar una accion sobre la base de datos");
 				numero=Integer.valueOf(br.readLine());
@@ -42,10 +47,16 @@ public class Programa {
 					break;
 				case 2:crearRegion();
 					break;
-				case 5:eliminarCampeon();
+				case 5:actualizarCampeon();
+					break;
+				case 6:eliminarCampeon();
+					break;
+				case 7:eliminarRegion();
+					break;
+				
 				}
 				
-			}while(numero>0&&numero<7);
+			}while(numero>0&&numero<8);
 			
 		}catch(Exception e) {
 			
@@ -54,7 +65,7 @@ public class Programa {
 	public static void crearCampeon() {
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
-		MongoCollection<Document> collecion=mongoDatabase.getCollection("Campeones");
+		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
 		
 		String nombre, alias, clase, carril, region;
 		double vida=0,regenVida=0,armor=0,mr=0,ad=0,atkspeed=0;
@@ -72,8 +83,8 @@ public class Programa {
 					System.out.println(x);
 				}
 				clase=br.readLine();
-			}while(!(clase.equalsIgnoreCase("Tirador")||clase.equalsIgnoreCase("Coloso")||clase.equalsIgnoreCase("Asesino")||
-					clase.equalsIgnoreCase("Hechizero")||clase.equalsIgnoreCase("Apoyo")));
+			}while(!(clase.equalsIgnoreCase("Tirador")||clase.equalsIgnoreCase("Coloso")||clase.equalsIgnoreCase("Tanque")
+					||clase.equalsIgnoreCase("Asesino")||clase.equalsIgnoreCase("Hechizero")||clase.equalsIgnoreCase("Apoyo")));
 			
 			do {
 			System.out.println("Carril al que pertenece el campeon");
@@ -118,7 +129,7 @@ public class Programa {
 				
 				comprobante=true;
 				}catch(NumberFormatException e) {
-					System.out.println("Mete numeros no letras!!!");
+					LOGGER.error("Mete numeros no letras!!!");
 					comprobante=false;
 				}
 			}while(comprobante==false);
@@ -137,13 +148,12 @@ public class Programa {
 			collecion.insertOne(campeon);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error de E/S");
 		}
 		
 	}
 	public static void crearRegion() {
-		MongoCollection<Document> collection =mongoDatabase.getCollection("Regiones");
+		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Regiones");
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
 		ArrayList<String> lista=new ArrayList<String>();
@@ -183,13 +193,40 @@ public class Programa {
 		collection.insertOne(region);
 		
 		} catch (IOException e) {
+			LOGGER.error("Error de E/S");
+		}
+	}
+
+	
+	private static void actualizarCampeon() {
+		MongoCollection<Document> collection =db.getMongoDatabase().getCollection("Campeones");
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br= new BufferedReader(isr);
+		String champ;
+		ArrayList<String>campeones=new ArrayList<String>();
+		//Mostrar los campeones
+		try {
+		FindIterable<Document> findIterable=collection.find();
+		Iterator<Document> iterator =findIterable.iterator();
+		System.out.println("Campeones");
+		while(iterator.hasNext()) {
+			Document document =iterator.next();
+			System.out.println(document.get("Nombre"));
+			campeones.add((String) document.get("Nombre"));
+		}
+			System.out.println("Introduce el nombre del campeon que quieras actualizar");
+			champ=br.readLine();
+			for (int i=0;i<campeones.size();i++) {
+				
+			}
+			
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
 	public static boolean eliminarCampeon() {
-		MongoCollection<Document> collection = mongoDatabase.getCollection("Campeones");
+		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Campeones");
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
 		String nombre;
@@ -198,19 +235,24 @@ public class Programa {
 		System.out.println("Indique el nombre del campeon que desea eliminar: ");
 		nombre = br.readLine();
 		
-		Document filtro = new Document("Nombre", nombre);
-		collection.deleteMany(filtro);
-		System.out.println("Campeon " + nombre + " eliminado");
+		DeleteResult deleteResult = collection.deleteOne(Filters.eq("Campeon", nombre));
+		
+		if(deleteResult.getDeletedCount() > 0) {
+			LOGGER.info("Campeon " + nombre + " eliminado");
+		}
+		else {
+			LOGGER.warn("Campeon " + nombre + " no encontrado");
+		}
+		
 		
 		}
 		catch(IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error de E/S");
 		}
 		return true;
 	}
 	public static boolean eliminarRegion() {
-		MongoCollection<Document> collection = mongoDatabase.getCollection("Regiones");
+		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Regiones");
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
 		String nombre;
@@ -219,14 +261,18 @@ public class Programa {
 		System.out.println("Indique el nombre de la Region que desea eliminar: ");
 		nombre = br.readLine();
 		
-		Document filtro = new Document("Region", nombre);
-		collection.deleteMany(filtro);
-		System.out.println("Region " + nombre + " eliminada");
+		DeleteResult deleteResult = collection.deleteOne(Filters.eq("Region", nombre));
+		
+		if(deleteResult.getDeletedCount() > 0) {
+			LOGGER.info("Region " + nombre + " eliminada");
+		}
+		else {
+			LOGGER.warn("Region " + nombre + " no encontrada");
+		}
 		
 		}
 		catch(IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error de E/S");
 		}
 		return true;
 	}
