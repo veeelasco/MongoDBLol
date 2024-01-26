@@ -28,8 +28,7 @@ public class MongoDB {
 		
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error E/S");
 		}
 		
 		
