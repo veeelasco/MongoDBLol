@@ -1,20 +1,14 @@
 package LeagueOfLegendsMDB;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import javax.imageio.spi.ServiceRegistry.Filter;
-
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
 
@@ -23,11 +17,12 @@ public class Programa {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(Programa.class);
 	
-	static MongoClient mongoClient=new MongoClient("localhost", 27017);
-	//Crea la bd league of legends
-	static MongoDatabase mongoDatabase= mongoClient.getDatabase("League_Of_Legends");
+	private static MongoDB db = new MongoDB();
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
 		try {
@@ -38,9 +33,10 @@ public class Programa {
 				System.out.println("2- Crear Region");
 				System.out.println("3- Leer Campeon");
 				System.out.println("4- Leer Region");
-				System.out.println("5- Borrar Campeon");
-				System.out.println("6- Borrar Region");
-				System.out.println("7- Salir");
+				System.out.println("5- Actualizar Campeon");
+				System.out.println("6- Borrar Campeon");
+				System.out.println("7- Borrar Region");
+				System.out.println("8- Salir");
 				
 				System.out.println("Introduce un numero para realizar una accion sobre la base de datos");
 				numero=Integer.valueOf(br.readLine());
@@ -50,9 +46,9 @@ public class Programa {
 					break;
 				case 2:crearRegion();
 					break;
-				case 5:eliminarCampeon();
+				case 6:eliminarCampeon();
 					break;
-				case 6:eliminarRegion();
+				case 7:eliminarRegion();
 					break;
 				}
 				
@@ -65,7 +61,7 @@ public class Programa {
 	public static void crearCampeon() {
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
-		MongoCollection<Document> collecion=mongoDatabase.getCollection("Campeones");
+		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
 		
 		String nombre, alias, clase, carril, region;
 		double vida=0,regenVida=0,armor=0,mr=0,ad=0,atkspeed=0;
@@ -153,7 +149,7 @@ public class Programa {
 		
 	}
 	public static void crearRegion() {
-		MongoCollection<Document> collection =mongoDatabase.getCollection("Regiones");
+		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Regiones");
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
 		ArrayList<String> lista=new ArrayList<String>();
@@ -198,7 +194,7 @@ public class Programa {
 	}
 	
 	public static boolean eliminarCampeon() {
-		MongoCollection<Document> collection = mongoDatabase.getCollection("Campeones");
+		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Campeones");
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
 		String nombre;
@@ -224,7 +220,7 @@ public class Programa {
 		return true;
 	}
 	public static boolean eliminarRegion() {
-		MongoCollection<Document> collection = mongoDatabase.getCollection("Regiones");
+		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Regiones");
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br= new BufferedReader(isr);
 		String nombre;
