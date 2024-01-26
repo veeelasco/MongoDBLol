@@ -288,7 +288,7 @@ public class Programa {
 			} while (num > 0 && num < 7);
 			Document nuevosDatosCampeon = collection.find(Filters.eq("Campeon", champ)).first();
 			System.out.println(nuevosDatosCampeon);
-		} catch (IOException e) {
+		} catch (IOException e) { 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
