@@ -4,10 +4,14 @@ Este proyecto Java utiliza MongoDB para gestionar información sobre Campeones y
 
 ## Requisitos previos
 
-Asegúrate de tener instalados los siguientes elementos antes de ejecutar el proyecto:
+>[!NOTE]
+>Asegúrate de tener instalados los siguientes elementos antes de ejecutar el proyecto:
 
-- Java Development Kit (JDK)
-- MongoDB (asegúrate de que el servidor de MongoDB esté en ejecución)
+>[!IMPORTANT]
+>- Java Development Kit (JDK)
+
+>[!WARNING]
+>- MongoDB (asegúrate de que el servidor de MongoDB esté en ejecución)
 
 ## Configuración del proyecto
 
@@ -16,4 +20,5 @@ Asegúrate de tener instalados los siguientes elementos antes de ejecutar el pro
    ```bash
    git clone https://github.com/veeelasco/MongoDBLol.git
 
-2. Asegurese que el archivo properties este configurado correctamente para la conexion con el servidor 
+>[!TIP]
+>2. Asegurese que el archivo properties este configurado correctamente para la conexion con el servidor 
