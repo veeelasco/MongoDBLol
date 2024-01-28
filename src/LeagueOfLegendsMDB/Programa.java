@@ -21,7 +21,6 @@ public class Programa {
 	private static MongoDB db = new MongoDB();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
@@ -47,6 +46,9 @@ public class Programa {
 					break;
 				case 2:
 					crearRegion();
+					break;
+				case 3:
+					consultaCampeon();
 					break;
 				case 5:
 					actualizarCampeon();
@@ -199,6 +201,36 @@ public class Programa {
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
 		}
+	}
+	
+	private static void consultaCampeon() {
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
+		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
+		
+		String nombre;
+		
+		System.out.println("Dime un campeon para enseñarte sus estadisticas");
+		
+		try {
+			nombre = br.readLine();
+			
+			FindIterable<Document> result = collecion.find(Filters.eq("Campeon", nombre));
+			
+			 if (result != null) {
+				 
+				 for (Document doc : result) {
+					 System.out.println(doc.toJson());
+		         }
+		     } 
+			 else {
+				 System.out.println("Campeon no encontrado");
+		     }
+			 
+		} catch (IOException e) {
+			LOGGER.error("Error de E/S");
+		}
+		
 	}
 
 	private static void actualizarCampeon() {
