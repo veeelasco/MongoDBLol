@@ -50,6 +50,9 @@ public class Programa {
 				case 3:
 					consultaCampeon();
 					break;
+				case 4:
+					consultaRegion();
+					break;
 				case 5:
 					actualizarCampeon();
 					break;
@@ -152,6 +155,9 @@ public class Programa {
 									.append("Armadura", armor).append("Resistencia magica", mr)
 									.append("Daño de ataque", ad).append("Velocidad de ataque", atkspeed));
 			collecion.insertOne(campeon);
+			
+			LOGGER.info("Cameon correctamente creado");
+			
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
 		}
@@ -197,7 +203,9 @@ public class Programa {
 			}
 			Document region = new Document("Region", nombre).append("Lista de Campeones", lista);
 			collection.insertOne(region);
-
+			
+			LOGGER.info("Region creada con exito");
+			
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
 		}
@@ -220,7 +228,7 @@ public class Programa {
 			 if (result != null) {
 				 
 				 for (Document doc : result) {
-					 System.out.println(doc.toJson());
+					 leerCampeon(doc);
 		         }
 		     } 
 			 else {
@@ -230,6 +238,52 @@ public class Programa {
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
 		}
+		
+	}
+	
+	private static void leerCampeon (Document doc) {
+		String campeon = doc.getString("Campeon");
+		Object estadisticas = doc.get("Estadisticas");
+		
+		LOGGER.info("El campeon " + campeon + " estas son sus Estadisticas: " + estadisticas.toString());
+		
+	}
+	
+	private static void consultaRegion() {
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
+		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
+		
+		String region;
+		
+		System.out.println("Dime una region para enseñarte todos los campeones que estan en su region");
+		
+		try {
+			region = br.readLine();
+			
+			FindIterable<Document> result = collecion.find(Filters.eq("Region", region));
+			
+			 if (result != null) {
+				 
+				 for (Document doc : result) {
+					 leerRegion(doc);
+		         }
+		     } 
+			 else {
+				 System.out.println("Region no encontrada");
+		     }
+			 
+		} catch (IOException e) {
+			LOGGER.error("Error de E/S");
+		}
+		
+	}
+
+	private static void leerRegion(Document doc) {
+		String region = doc.getString("Region");
+		String campeon = doc.getString("Campeon");
+		
+		LOGGER.info("El campeon " + campeon + " esta en la region " + region);
 		
 	}
 
