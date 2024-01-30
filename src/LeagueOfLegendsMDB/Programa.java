@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.DeleteResult;
@@ -117,12 +118,12 @@ public class Programa {
 					System.out.println(regionFicticia);
 				}
 				region = br.readLine();
-			} while (!(region.equalsIgnoreCase("Demacia") || region.equalsIgnoreCase("Noxus")
-					|| region.equalsIgnoreCase("Piltover") || region.equalsIgnoreCase("Zaun")
-					|| region.equalsIgnoreCase("Freljord") || region.equalsIgnoreCase("Jonia")
-					|| region.equalsIgnoreCase("Shadow Isles") || region.equalsIgnoreCase("Bandle City")
-					|| region.equalsIgnoreCase("Aguasestancadas") || region.equalsIgnoreCase("Targon")
-					|| region.equalsIgnoreCase("El Vacio") || region.equalsIgnoreCase("Desconocido")));
+			} while (!(region.equals("Demacia") || region.equals("Noxus")
+					|| region.equals("Piltover") || region.equals("Zaun")
+					|| region.equals("Freljord") || region.equals("Jonia")
+					|| region.equals("Shadow Isles") || region.equals("Bandle City")
+					|| region.equals("Aguasestancadas") || region.equals("Targon")
+					|| region.equals("El Vacio") || region.equals("Desconocido")));
 
 			boolean comprobante = false;
 			do {
@@ -156,7 +157,7 @@ public class Programa {
 									.append("Daño de ataque", ad).append("Velocidad de ataque", atkspeed));
 			collecion.insertOne(campeon);
 			
-			LOGGER.info("Cameon correctamente creado");
+			LOGGER.info("Campeon correctamente creado");
 			
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
@@ -170,7 +171,8 @@ public class Programa {
 		BufferedReader br = new BufferedReader(isr);
 		ArrayList<String> lista = new ArrayList<String>();
 		String nombre;
-		int campeones;
+		boolean comp=false;
+		int campeones=-1;
 		try {
 			System.out.println("Nombre de la region");
 			do {
@@ -181,26 +183,36 @@ public class Programa {
 					System.out.println(regionFicticia);
 				}
 				nombre = br.readLine();
-			} while (!(nombre.equalsIgnoreCase("Demacia") || nombre.equalsIgnoreCase("Noxus")
-					|| nombre.equalsIgnoreCase("Piltover") || nombre.equalsIgnoreCase("Zaun")
-					|| nombre.equalsIgnoreCase("Freljord") || nombre.equalsIgnoreCase("Jonia")
-					|| nombre.equalsIgnoreCase("Shadow Isles") || nombre.equalsIgnoreCase("Bandle City")
-					|| nombre.equalsIgnoreCase("Aguasestancadas") || nombre.equalsIgnoreCase("Targon")
-					|| nombre.equalsIgnoreCase("El Vacio") || nombre.equalsIgnoreCase("Desconocido")));
+			} while (!(nombre.equals("Demacia") || nombre.equals("Noxus")
+					|| nombre.equals("Piltover") || nombre.equals("Zaun")
+					|| nombre.equals("Freljord") || nombre.equals("Jonia")
+					|| nombre.equals("Shadow Isles") || nombre.equals("Bandle City")
+					|| nombre.equals("Aguasestancadas") || nombre.equals("Targon")
+					|| nombre.equals("El Vacio") || nombre.equals("Desconocido")));
 
 			System.out.println("Campeones pertenecientes a la region");
-			try {
-				do {
-					campeones = Integer.valueOf(br.readLine());
-					for (int i = 0; i < campeones; i++) {
-						System.out.println("Lista de campeones: ");
-						String campeon = br.readLine();
-						lista.add(campeon);
-					}
-				} while (campeones < 0);
-			} catch (NumberFormatException e) {
-				System.out.println("Mete numeros");
-			}
+			do {
+				try {
+						campeones = Integer.valueOf(br.readLine());
+						comp=true;
+						if(comp ==true) {
+							System.out.println("Lista de Campeones");
+							for (int i = 1; i <= campeones; i++) {
+								System.out.println("Campeon "+i+":");
+								String campeon = br.readLine();
+								lista.add(campeon);
+								comp=true;
+							}
+							comp=true;
+						}else {
+							System.out.println("Vuelve a introducir el numero de campeones que pertenecen a la region");
+						}
+						
+				} catch (NumberFormatException e) {
+					System.out.println("Mete numeros vuelve a introducir la cantidad de campeones");
+					comp=false;
+				}
+			} while (comp==false);
 			Document region = new Document("Region", nombre).append("Lista de Campeones", lista);
 			collection.insertOne(region);
 			
@@ -252,40 +264,41 @@ public class Programa {
 	private static void consultaRegion() {
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
-		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
+		MongoCollection<Document> regiones = db.getMongoDatabase().getCollection("Regiones");
+		
 		
 		String region;
 		
 		System.out.println("Dime una region para enseñarte todos los campeones que estan en su region");
-		
 		try {
-			region = br.readLine();
+			do {
+				String[] regionesFicticias = { "Demacia", "Noxus", "Piltover", "Zaun", "Freljord", "Jonia",
+						"Shadow Isles", "Bandle City", "Aguasestancadas", "Targon", "El Vacio", "Desconocido" };
+
+				for (String regionFicticia : regionesFicticias) {
+					System.out.println(regionFicticia);
+				}
+				region = br.readLine();
+			}while((!(region.equals("Demacia") || region.equals("Noxus")
+					|| region.equals("Piltover") || region.equals("Zaun")
+					|| region.equals("Freljord") || region.equals("Jonia")
+					|| region.equals("Shadow Isles") || region.equals("Bandle City")
+					|| region.equals("Aguasestancadas") || region.equals("Targon")
+					|| region.equals("El Vacio") || region.equals("Desconocido"))));
 			
-			FindIterable<Document> result = collecion.find(Filters.eq("Region", region));
+
+			FindIterable<Document> regionEncontrada=regiones.find(Filters.eq("Region", region));
 			
-			 if (result != null) {
-				 
-				 for (Document doc : result) {
-					 leerRegion(doc);
-		         }
-		     } 
-			 else {
-				 System.out.println("Region no encontrada");
-		     }
-			 
+			MongoCursor<Document> mongoCursor=regionEncontrada.iterator();
+			 	 while(mongoCursor.hasNext()) {
+			 		 LOGGER.info(mongoCursor.next().toJson());
+			 	 }
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
 		}
 		
 	}
 
-	private static void leerRegion(Document doc) {
-		String region = doc.getString("Region");
-		String campeon = doc.getString("Campeon");
-		
-		LOGGER.info("El campeon " + campeon + " esta en la region " + region);
-		
-	}
 
 	private static void actualizarCampeon() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Campeones");
