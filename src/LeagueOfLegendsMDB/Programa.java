@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.mongodb.client.FindIterable;
@@ -25,9 +29,10 @@ public class Programa {
 
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
-		try {
-
-			int numero;
+			
+			LOGGER.info("Se han cargado campeones");
+			int numero = 0;
+			
 			do {
 				System.out.println("1- Crear Campeon");
 				System.out.println("2- Crear Region");
@@ -36,41 +41,55 @@ public class Programa {
 				System.out.println("5- Actualizar Campeon");
 				System.out.println("6- Borrar Campeon");
 				System.out.println("7- Borrar Region");
-				System.out.println("8- Salir");
+				System.out.println("8- Insertar Conjunto de campeones desde un fichero JSON");
+				System.out.println("9- Salir");
+				try {
 
-				System.out.println("Introduce un numero para realizar una accion sobre la base de datos");
-				numero = Integer.valueOf(br.readLine());
+					System.out.println("Introduce un numero para realizar una accion sobre la base de datos");
+					numero = Integer.valueOf(br.readLine());
 
-				switch (numero) {
-				case 1:
-					crearCampeon();
-					break;
-				case 2:
-					crearRegion();
-					break;
-				case 3:
-					consultaCampeon();
-					break;
-				case 4:
-					consultaRegion();
-					break;
-				case 5:
-					actualizarCampeon();
-					break;
-				case 6:
-					eliminarCampeon();
-					break;
-				case 7:
-					eliminarRegion();
-					break;
-
+					switch (numero) {
+					case 1:
+						crearCampeon();
+						break;
+					case 2:
+						crearRegion();
+						break;
+					case 3:
+						consultaCampeon();
+						break;
+					case 4:
+						consultaRegion();
+						break;
+					case 5:
+						actualizarCampeon();
+						break;
+					case 6:
+						eliminarCampeon();
+						break;
+					case 7:
+						eliminarRegion();
+						break;
+					case 8:insertarConjuntoCampeones();
+						break;
+					case 9: break;
+					default:
+						System.out.println("introduce un numero que este en el menu");
+					}
+				} catch (NumberFormatException e) {
+					LOGGER.warn("Introduce NUMEROS NO LETRAS");
+				} catch (Exception e) {
+					LOGGER.error("Execepcion en el menu principal");
 				}
+			} while (numero > 9 || numero < 9);
+			try {
+				br.close();
+				isr.close();
+			} catch (IOException e) {
+				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
+			}
+			LOGGER.info("FIN DEL PROGRAMA");
 
-			} while (numero > 0 && numero < 8);
-
-		} catch (Exception e) {
-			LOGGER.error("Execepcion en el menu principal");
-		}
 	}
 
 	public static void crearCampeon() {
@@ -161,6 +180,13 @@ public class Programa {
 			
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
+		}finally {
+			try {
+				br.close();
+				isr.close();
+			} catch (IOException e) {
+				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
+			}
 		}
 
 	}
@@ -220,6 +246,13 @@ public class Programa {
 			
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
+		}finally {
+			try {
+				br.close();
+				isr.close();
+			} catch (IOException e) {
+				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
+			}
 		}
 	}
 	
@@ -249,6 +282,13 @@ public class Programa {
 			 
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
+		}finally {
+			try {
+				br.close();
+				isr.close();
+			} catch (IOException e) {
+				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
+			}
 		}
 		
 	}
@@ -295,6 +335,13 @@ public class Programa {
 			 	 }
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
+		}finally {
+			try {
+				br.close();
+				isr.close();
+			} catch (IOException e) {
+				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
+			}
 		}
 		
 	}
@@ -388,8 +435,14 @@ public class Programa {
 			Document nuevosDatosCampeon = collection.find(Filters.eq("Campeon", champ)).first();
 			System.out.println(nuevosDatosCampeon);
 		} catch (IOException e) { 
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error de E/S");
+		}finally {
+			try {
+				br.close();
+				isr.close();
+			} catch (IOException e) {
+				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
+			}
 		}
 	}
 
@@ -412,6 +465,13 @@ public class Programa {
 			}
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
+		}finally {
+			try {
+				br.close();
+				isr.close();
+			} catch (IOException e) {
+				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
+			}
 		}
 		return true;
 	}
@@ -436,9 +496,32 @@ public class Programa {
 
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
+		}finally {
+			try {
+				br.close();
+				isr.close();
+			} catch (IOException e) {
+				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
+			}
 		}
 		return true;
 	}
 	
+	private static void insertarConjuntoCampeones() {
+		String jsonString = JSON.leerContenidoArchivo("Campeones.json");
+		JSONArray campeonesArray = new JSONArray(jsonString);
+
+		// Procesa cada campeón
+		List<Document> campeonesList = new ArrayList<>();
+		for (int i = 0; i < campeonesArray.length(); i++) {
+			JSONObject campeon = campeonesArray.getJSONObject(i);
+			// Procesa y guarda la información del campeón en MongoDB
+			Document campeonDocument = JSON.crearDocumentoCampeon(campeon);
+			campeonesList.add(campeonDocument);
+		}
+		MongoCollection<Document> campeonesCollection = db.getMongoDatabase().getCollection("Campeones");
+		campeonesCollection.insertMany(campeonesList);
+		LOGGER.info("Se ha insertado los campeones a la Base de datos");
+	}
 
 }

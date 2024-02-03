@@ -1,0 +1,327 @@
+[
+    {
+      "Alias": "EL carcelero implacable",
+      "Clase": "Apoyo",
+      "Carril": "Apoyo",
+      "Region": "Shadow Isles",
+      "Estadisticas": {
+        "Vida": 900,
+        "Regeneracion de Vida": 3,
+        "Armadura": 38,
+        "Resistencia magica": 32,
+        "Daño de ataque": 60,
+        "Velocidad de ataque": 0.6510000228881836
+      },
+      "Campeon": "Thresh"
+    },
+    {
+        "Alias": "La vastaya de nueve colas",
+        "Clase": "Asesino",
+        "Carril": "Central",
+        "Region": "Jonia",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Ahri"
+      },
+      {
+        "Alias": "El señor de las arenas",
+        "Clase": "Hechizero",
+        "Carril": "Central",
+        "Region": "Jonia",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Azir"
+      },{
+        "Alias": "La venganza ardiente",
+        "Clase": "Hechizero",
+        "Carril": "Central",
+        "Region": "Shurima",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Brand"
+      },{
+        "Alias": "El segador sombrio",
+        "Clase": "Hechizero",
+        "Carril": "Jungla",
+        "Region": "Jonia",
+        "Estadisticas": {
+          "Vida": 750,
+          "Regeneracion de Vida": 4.5,
+          "Armadura": 43,
+          "Resistencia magica": 35,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Kayn"
+      },{
+        "Alias": "El virtuoso",
+        "Clase": "Tirador",
+        "Carril": "Inferior",
+        "Region": "Jonia",
+        "Estadisticas": {
+          "Vida": 444,
+          "Regeneracion de Vida": 4,
+          "Armadura": 44,
+          "Resistencia magica": 44,
+          "Daño de ataque": 44,
+          "Velocidad de ataque": 0.4444444
+        },
+        "Campeon": "Jhin"
+      },{
+        "Alias": "El inventor venerado",
+        "Clase": "Hechizero",
+        "Carril": "Central",
+        "Region": "Piltover",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Heimerdinger"
+      },{
+        "Alias": "EL destello purificador",
+        "Clase": "Tirador",
+        "Carril": "Inferior",
+        "Region": "Desconocido",
+        "Estadisticas": {
+          "Vida": 820,
+          "Regeneracion de Vida": 4,
+          "Armadura": 33,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Lucian"
+      },{
+        "Alias": "El encantador",
+        "Clase": "Apoyo",
+        "Carril": "Apoyo",
+        "Region": "Jonia",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Rakan"
+      },{
+        "Alias": "La dama de hierro",
+        "Clase": "Tanque",
+        "Carril": "Jungla",
+        "Region": "Noxus",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Rell"
+      },{
+        "Alias": "La sombra de la espada",
+        "Clase": "Asesino",
+        "Carril": "Central",
+        "Region": "Noxus",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Talon"
+      },{
+        "Alias": "La rosa del desierto",
+        "Clase": "Tirador",
+        "Carril": "Inferior",
+        "Region": "Noxus",
+        "Estadisticas": {
+          "Vida": 700,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Samira"
+      },{
+        "Alias": "El guardian del tiempo",
+        "Clase": "Apoyo",
+        "Carril": "Apoyo",
+        "Region": "Desconocido",
+        "Estadisticas": {
+          "Vida": 765,
+          "Regeneracion de Vida": 2.3,
+          "Armadura": 30,
+          "Resistencia magica": 30,
+          "Daño de ataque": 60,
+          "Velocidad de ataque": 0.76
+        },
+        "Campeon": "Zilean"
+      },{
+        "Alias": "La rebelde",
+        "Clase": "Tirador",
+        "Carril": "Inferior",
+        "Region": "Jonia",
+        "Estadisticas": {
+          "Vida": 880,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 75,
+          "Velocidad de ataque": 0.63
+        },
+        "Campeon": "Xayah"
+      },{
+        "Alias": "El maestro de las cartas",
+        "Clase": "Hechizero",
+        "Carril": "Central",
+        "Region": "Aguas Estancadas",
+        "Estadisticas": {
+          "Vida": 920,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Twisted Fate"
+      },{
+        "Alias": "La artillera yordle",
+        "Clase": "Tirador",
+        "Carril": "Inferior",
+        "Region": "Bandle City",
+        "Estadisticas": {
+          "Vida": 900,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Tristana"
+      },{
+        "Alias": "El desencadenado",
+        "Clase": "Hechizero",
+        "Carril": "Central",
+        "Region": "Demacia",
+        "Estadisticas": {
+          "Vida": 750,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 65,
+          "Velocidad de ataque": 0.75
+        },
+        "Campeon": "Sylas"
+      },{
+        "Alias": "El poder de demacia",
+        "Clase": "Coloso",
+        "Carril": "Superior",
+        "Region": "Demacia",
+        "Estadisticas": {
+          "Vida": 990,
+          "Regeneracion de Vida": 4,
+          "Armadura": 50,
+          "Resistencia magica": 39,
+          "Daño de ataque": 77,
+          "Velocidad de ataque": 0.8
+        },
+        "Campeon": "Garen"
+      },{
+        "Alias": "El hechizero runico",
+        "Clase": "Hechizero",
+        "Carril": "Central",
+        "Region": "Desconocido",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Ryze"
+      },{
+        "Alias": "El ejemplo de demacia",
+        "Clase": "Coloso",
+        "Carril": "Jungla",
+        "Region": "Demacia",
+        "Estadisticas": {
+          "Vida": 850,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Jarvan IV"
+      },{
+        "Alias": "El terror del vacio",
+        "Clase": "Tanque",
+        "Carril": "Superior",
+        "Region": "El Vacio",
+        "Estadisticas": {
+          "Vida": 1200,
+          "Regeneracion de Vida": 4,
+          "Armadura": 48,
+          "Resistencia magica": 50,
+          "Daño de ataque": 70,
+          "Velocidad de ataque": 0.75
+        },
+        "Campeon": "Cho'Gath"
+      },{
+        "Alias": "El treant retorcido",
+        "Clase": "Tanque",
+        "Carril": "Jungla",
+        "Region": "Shadow Isles",
+        "Estadisticas": {
+          "Vida": 1000,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Maokai"
+      },{
+        "Alias": "El defensor del mañana",
+        "Clase": "Coloso",
+        "Carril": "Central",
+        "Region": "Piltover",
+        "Estadisticas": {
+          "Vida": 750,
+          "Regeneracion de Vida": 4,
+          "Armadura": 43,
+          "Resistencia magica": 32,
+          "Daño de ataque": 69,
+          "Velocidad de ataque": 0.6510000228881836
+        },
+        "Campeon": "Jayce"
+      }
+]
