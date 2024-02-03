@@ -17,6 +17,7 @@ public class MongoDB {
 	private MongoDatabase mongoDatabase = null;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(MongoDB.class);
+	
 	public MongoDB() {
 		
 		Properties fichProperties = new Properties();
@@ -28,8 +29,7 @@ public class MongoDB {
 		
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error E/S");
 		}
 		
 		
