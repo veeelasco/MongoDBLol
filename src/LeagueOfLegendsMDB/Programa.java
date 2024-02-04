@@ -19,6 +19,18 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.DeleteResult;
 
+
+/**
+ * 
+ * Clase principal del programa. 
+ * En ella se ejecuta la logica del programa. 
+ * El programa consiste en la conexion con una base de datos no relacional mediante la cual se puede interactuar de distintas formas. 
+ * Se permite la insercion, eliminacion, modificacion y consulta de datos.
+ * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+ * @since 2023 - 2024
+ * @version 1.0
+ * 
+ */
 public class Programa {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Programa.class);
@@ -27,6 +39,14 @@ public class Programa {
 	private static InputStreamReader isr = new InputStreamReader(System.in);
 	private static BufferedReader br = new BufferedReader(isr);
 	
+	/**
+	 * Metodo Main. 
+	 * Este metodo consta con un menu que da acceso a las distintas funciones del programa.
+	 * Contiene los metodos: crearCampeon(), crearRegion(), consultarCampeon();, consultarRegion(), actualizarCampeon(), eliminarCampeon(), eliminarRegion(), insertarConjuntoCampeones().
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	public static void main(String[] args) {
 
 		
@@ -93,6 +113,13 @@ public class Programa {
 
 	}
 
+	/**
+	 * Metodo crearCampeon().
+	 * Este metodo accede a la coleccion de campeones en la base de datos y mediante la recoleccion de datos por parte del usuario inserta el documento en la base de datos.
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	public static void crearCampeon() {
 		
 		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
@@ -184,6 +211,13 @@ public class Programa {
 
 	}
 
+	/**
+	 * Metodo crearRegion().
+	 * Este metodo accede a la coleccion de regiones en la base de datos y mediante la recoleccion de datos por parte del usuario inserta el documento en la base de datos.
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	public static void crearRegion() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Regiones");
 		
@@ -241,6 +275,14 @@ public class Programa {
 		}
 	}
 	
+	/**
+	 * Metodo consultarCampeon().
+	 * Este metodo accede a la coleccion de campeones en la base de datos para mostrar los detalles de un elemento determinado.
+	 * En este caso la busqueda se hace midiante el nombre del elemento.
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	private static void consultaCampeon() {
 		
 		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
@@ -269,7 +311,13 @@ public class Programa {
 		}
 		
 	}
-	
+	/**
+	 * Metodo leerCampeon().
+	 * Este metodo formatea la informacion recibida de la base de datos para mostrarla con un formato especifico
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	private static void leerCampeon (Document doc) {
 		String campeon = doc.getString("Campeon");
 		Object estadisticas = doc.get("Estadisticas");
@@ -278,6 +326,14 @@ public class Programa {
 		
 	}
 	
+	/**
+	 * Metodo consultarRegion().
+	 * Este metodo accede a la coleccion de regiones en la base de datos para mostrar los detalles de un elemento determinado.
+	 * En este caso la busqueda se hace midiante el nombre del elemento.
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	private static void consultaRegion() {
 		
 		MongoCollection<Document> regiones = db.getMongoDatabase().getCollection("Regiones");
@@ -315,7 +371,13 @@ public class Programa {
 		
 	}
 
-
+	/**
+	 * Metodo actualizarCampeon().
+	 * Este metodo accede a la coleccion de campeones en la base de datos y mediante un menu permite modificar datos especificos de un elemento concreto.
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	private static void actualizarCampeon() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Campeones");
 		
@@ -407,6 +469,14 @@ public class Programa {
 		}
 	}
 
+	/**
+	 * Metodo eliminarCampeon().
+	 * Este metodo accede a la coleccion de campeones en la base de datos para proceder a la eliminacion de un elemento especifico.
+	 * En este caso la busqueda se hace midiante el nombre del elemento.
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	public static boolean eliminarCampeon() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Campeones");
 		
@@ -429,6 +499,14 @@ public class Programa {
 		return true;
 	}
 
+	/**
+	 * Metodo eliminarRegion().
+	 * Este metodo accede a la coleccion de regiones en la base de datos para proceder a la eliminacion de un elemento especifico.
+	 * En este caso la busqueda se hace midiante el nombre del elemento.
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	public static boolean eliminarRegion() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Regiones");
 		
@@ -452,6 +530,13 @@ public class Programa {
 		return true;
 	}
 	
+	/**
+	 * Metodo insertarConjuntoCampeones().
+	 * Este metodo es un añadido para la prueba del programa. Se trata de un metodo que carga datos de ejemplo en la base de datos para hacer pruebas
+	 * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+	 * @since 2023 - 2024
+	 * @version 1.0
+	 */
 	private static void insertarConjuntoCampeones() {
 		String jsonString = JSON.leerContenidoArchivo("Campeones.json");
 		JSONArray campeonesArray = new JSONArray(jsonString);
