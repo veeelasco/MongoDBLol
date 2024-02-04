@@ -24,11 +24,12 @@ public class Programa {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Programa.class);
 
 	private static MongoDB db = new MongoDB();
-
+	private static InputStreamReader isr = new InputStreamReader(System.in);
+	private static BufferedReader br = new BufferedReader(isr);
+	
 	public static void main(String[] args) {
 
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+		
 			
 			LOGGER.info("Se han cargado campeones");
 			int numero = 0;
@@ -79,7 +80,7 @@ public class Programa {
 				} catch (NumberFormatException e) {
 					LOGGER.warn("Introduce NUMEROS NO LETRAS");
 				} catch (Exception e) {
-					LOGGER.error("Execepcion en el menu principal");
+					LOGGER.error("Execepcion en el menu principal. " + e.getMessage());
 				}
 			} while (numero > 9 || numero < 9);
 			try {
@@ -93,8 +94,7 @@ public class Programa {
 	}
 
 	public static void crearCampeon() {
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+		
 		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
 
 		String nombre, alias, clase, carril, region;
@@ -180,21 +180,13 @@ public class Programa {
 			
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
-		}finally {
-			try {
-				br.close();
-				isr.close();
-			} catch (IOException e) {
-				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
-			}
 		}
 
 	}
 
 	public static void crearRegion() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Regiones");
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+		
 		ArrayList<String> lista = new ArrayList<String>();
 		String nombre;
 		boolean comp=false;
@@ -246,19 +238,11 @@ public class Programa {
 			
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
-		}finally {
-			try {
-				br.close();
-				isr.close();
-			} catch (IOException e) {
-				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
-			}
 		}
 	}
 	
 	private static void consultaCampeon() {
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+		
 		MongoCollection<Document> collecion = db.getMongoDatabase().getCollection("Campeones");
 		
 		String nombre;
@@ -282,13 +266,6 @@ public class Programa {
 			 
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
-		}finally {
-			try {
-				br.close();
-				isr.close();
-			} catch (IOException e) {
-				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
-			}
 		}
 		
 	}
@@ -302,8 +279,7 @@ public class Programa {
 	}
 	
 	private static void consultaRegion() {
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+		
 		MongoCollection<Document> regiones = db.getMongoDatabase().getCollection("Regiones");
 		
 		
@@ -335,13 +311,6 @@ public class Programa {
 			 	 }
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
-		}finally {
-			try {
-				br.close();
-				isr.close();
-			} catch (IOException e) {
-				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
-			}
 		}
 		
 	}
@@ -349,8 +318,7 @@ public class Programa {
 
 	private static void actualizarCampeon() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Campeones");
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+		
 		String champ;
 		boolean comp = false;// ES false al principio, si es true siginifica que se ha encontrado el nombre
 								// del campeon en la lista
@@ -436,20 +404,12 @@ public class Programa {
 			System.out.println(nuevosDatosCampeon);
 		} catch (IOException e) { 
 			LOGGER.error("Error de E/S");
-		}finally {
-			try {
-				br.close();
-				isr.close();
-			} catch (IOException e) {
-				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
-			}
 		}
 	}
 
 	public static boolean eliminarCampeon() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Campeones");
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+		
 		String nombre;
 
 		try {
@@ -465,21 +425,13 @@ public class Programa {
 			}
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
-		}finally {
-			try {
-				br.close();
-				isr.close();
-			} catch (IOException e) {
-				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
-			}
 		}
 		return true;
 	}
 
 	public static boolean eliminarRegion() {
 		MongoCollection<Document> collection = db.getMongoDatabase().getCollection("Regiones");
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+		
 		String nombre;
 
 		try {
@@ -496,13 +448,6 @@ public class Programa {
 
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
-		}finally {
-			try {
-				br.close();
-				isr.close();
-			} catch (IOException e) {
-				LOGGER.error("Error al cerrar el InputStreamReader o el BufferedReader");
-			}
 		}
 		return true;
 	}
