@@ -19,7 +19,10 @@ Este proyecto Java utiliza MongoDB para gestionar información sobre Campeones y
 
    ```bash
    git clone https://github.com/veeelasco/MongoDBLol.git
+>[!NOTE]
+>Recursos:
 
 >[!TIP]
 >- Asegurese que el archivo properties este configurado correctamente para la conexion con el servidor
+>- Para evitar mensajes molestos en la consola de comandos asegurese de que disponga del Logback.xml
 >- Cuando se ejecute el programa recomendamos ejecutar la opcion 8 del menu. Esto cargara datos de prueba para que pueda testear el programa correctamente.
