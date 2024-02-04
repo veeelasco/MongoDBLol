@@ -95,7 +95,8 @@ public class Programa {
 						break;
 					case 9: break;
 					default:
-						System.out.println("introduce un numero que este en el menu");
+						LOGGER.warn("introduce un numero que este en el menu");
+						
 					}
 				} catch (NumberFormatException e) {
 					LOGGER.warn("Introduce NUMEROS NO LETRAS");
@@ -154,9 +155,10 @@ public class Programa {
 			} while (!(carril.equalsIgnoreCase("Superior") || carril.equalsIgnoreCase("Jungla")
 					|| carril.equalsIgnoreCase("Central") || carril.equalsIgnoreCase("Inferior")
 					|| carril.equalsIgnoreCase("Apoyo")));
-			System.out.println("Region a la que pertenece el campeon");
+			
 
 			do {
+				System.out.println("Region a la que pertenece el campeon");
 				String[] regionesFicticias = { "Demacia", "Noxus", "Piltover", "Zaun", "Freljord", "Jonia",
 						"Shadow Isles", "Bandle City", "Aguasestancadas", "Targon", "El Vacio", "Desconocido" };
 
@@ -226,8 +228,8 @@ public class Programa {
 		boolean comp=false;
 		int campeones=-1;
 		try {
-			System.out.println("Nombre de la region");
 			do {
+				System.out.println("Nombre de la region");
 				String[] regionesFicticias = { "Demacia", "Noxus", "Piltover", "Zaun", "Freljord", "Jonia",
 						"Shadow Isles", "Bandle City", "Aguasestancadas", "Targon", "El Vacio", "Desconocido" };
 
@@ -242,8 +244,9 @@ public class Programa {
 					|| nombre.equals("Aguasestancadas") || nombre.equals("Targon")
 					|| nombre.equals("El Vacio") || nombre.equals("Desconocido")));
 
-			System.out.println("Campeones pertenecientes a la region");
+			
 			do {
+				System.out.println("Campeones pertenecientes a la region");
 				try {
 						campeones = Integer.valueOf(br.readLine());
 						comp=true;
@@ -341,9 +344,10 @@ public class Programa {
 		
 		String region;
 		
-		System.out.println("Dime una region para enseñarte todos los campeones que estan en su region");
+		
 		try {
 			do {
+				System.out.println("Dime una region para enseñarte todos los campeones que estan en su region");
 				String[] regionesFicticias = { "Demacia", "Noxus", "Piltover", "Zaun", "Freljord", "Jonia",
 						"Shadow Isles", "Bandle City", "Aguasestancadas", "Targon", "El Vacio", "Desconocido" };
 
@@ -473,11 +477,16 @@ public class Programa {
 						collection.updateOne(Filters.eq("Campeon", champ),
 								Updates.set("Estadisticas.Velocidad de ataque", nuevaStat));
 						break;
+					case 7:
+						LOGGER.info("Has salido del menu y esta es la informacion del campeon actualizado: ");
+						break;
+					default:
+						LOGGER.warn("Introduce una opcion del menu");
 					}
 				} catch (NumberFormatException e) {
 					LOGGER.error("Introduce un numero no letras");
 				}
-			} while (num > 0 && num < 7);
+			} while (num != 7);
 			Document nuevosDatosCampeon = collection.find(Filters.eq("Campeon", champ)).first();
 			System.out.println(nuevosDatosCampeon);
 		} catch (IOException e) { 
@@ -502,7 +511,7 @@ public class Programa {
 			System.out.println("Indique el nombre del campeon que desea eliminar: ");
 			nombre = br.readLine();
 
-			DeleteResult deleteResult = collection.deleteOne(Filters.eq("Campeon", nombre));
+			DeleteResult deleteResult = collection.deleteMany(Filters.eq("Campeon", nombre));
 
 			if (deleteResult.getDeletedCount() > 0) {
 				LOGGER.info("Campeon " + nombre + " eliminado");
@@ -532,7 +541,7 @@ public class Programa {
 			System.out.println("Indique el nombre de la Region que desea eliminar: ");
 			nombre = br.readLine();
 
-			DeleteResult deleteResult = collection.deleteOne(Filters.eq("Region", nombre));
+			DeleteResult deleteResult = collection.deleteMany(Filters.eq("Region", nombre));
 
 			if (deleteResult.getDeletedCount() > 0) {
 				LOGGER.info("Region " + nombre + " eliminada");
