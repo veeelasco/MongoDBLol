@@ -11,7 +11,8 @@ Este proyecto Java utiliza MongoDB para gestionar información sobre Campeones y
 >- Java Development Kit (JDK)
 
 >[!CAUTION]
->- MongoDB (asegúrate de que el servidor de MongoDB (mongod.exe) esté en ejecución)
+>- MongoDB (asegúrate de que el servidor de MongoDB (mongod.exe) esté en ejecución)     
+>-     https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-7.0.5-signed.msi
 
 ## Configuración del proyecto
 
