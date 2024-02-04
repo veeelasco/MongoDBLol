@@ -10,13 +10,23 @@ import org.slf4j.LoggerFactory;
 
 
 
+/**
+ * Clase JSON.
+ * Esta clase se encarga de leer ficheros .json y apartir de ellos crear documentos de campeones 
+ * @author Carlos Velasco, Alvaro Aparicio, Diego Hernando, Jose Julian Saavedra
+ * @since 2023 - 2024
+ * @version 1.0
+ */
 public class JSON {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JSON.class);
-	
-	public JSON() {
-       
-    }
 
+    /**
+     * Metodo leerContenidoArchivo
+     * Recibe por parametro un string que sera la ruta del fichero json que utilizara para leerlo
+     * y devolvera un String
+     * @param ruta
+     * @return
+     */
     public static String leerContenidoArchivo(String ruta) {
         try {
             byte[] contenido = Files.readAllBytes(Paths.get(ruta));
@@ -27,6 +37,13 @@ public class JSON {
         }
     }
 
+    /**
+     *  Crea un objeto Document de MongoDB a partir de un JSONObject que recibe por parametro y que representa
+	 * la información de un campeón.
+	 *
+	 * @param campeon 
+	 * @return Document
+	 */
     public static Document crearDocumentoCampeon(JSONObject campeon) {
         String nombre = campeon.getString("Campeon");
         String alias = campeon.getString("Alias");
