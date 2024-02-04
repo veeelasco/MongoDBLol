@@ -254,15 +254,16 @@ public class Programa {
 			
 			FindIterable<Document> result = collecion.find(Filters.eq("Campeon", nombre));
 			
-			 if (result != null) {
-				 
-				 for (Document doc : result) {
-					 leerCampeon(doc);
-		         }
-		     } 
-			 else {
-				 System.out.println("Campeon no encontrado");
-		     }
+			Document doc1 = result.first();
+			
+			if (doc1 != null) {
+				for (Document doc : result) {
+					leerCampeon(doc);
+				}
+			}
+			else {
+				LOGGER.warn("Campeon no encontrado");
+		    }
 			 
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
@@ -274,14 +275,13 @@ public class Programa {
 		String campeon = doc.getString("Campeon");
 		Object estadisticas = doc.get("Estadisticas");
 		
-		LOGGER.info("El campeon " + campeon + " estas son sus Estadisticas: " + estadisticas.toString());
+		LOGGER.info("Estas son las Estadisticas del campeon " + campeon  + ": " + estadisticas.toString());
 		
 	}
 	
 	private static void consultaRegion() {
 		
 		MongoCollection<Document> regiones = db.getMongoDatabase().getCollection("Regiones");
-		
 		
 		String region;
 		
@@ -306,12 +306,28 @@ public class Programa {
 			FindIterable<Document> regionEncontrada=regiones.find(Filters.eq("Region", region));
 			
 			MongoCursor<Document> mongoCursor=regionEncontrada.iterator();
-			 	 while(mongoCursor.hasNext()) {
-			 		 LOGGER.info(mongoCursor.next().toJson());
+			
+			Document doc1 = regionEncontrada.first();
+			if (doc1 != regionEncontrada.first()) {
+				while(mongoCursor.hasNext()) {
+			 		 leerRegion(mongoCursor.next());
 			 	 }
+			}
+			else { 
+				LOGGER.warn("Esta region no se ha creado en la base de datos");
+			}
+			
 		} catch (IOException e) {
 			LOGGER.error("Error de E/S");
 		}
+		
+	}
+	
+	private static void leerRegion (Document doc) {
+		String region = doc.getString("Region");
+		Object campeones = doc.get("Lista de Campeones");
+		
+		LOGGER.info("Estas son los campeones que hay en la region " + region  + ": " + campeones.toString());
 		
 	}
 
